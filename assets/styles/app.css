@@ -1,3 +1,147 @@
-body {
-    background-color: skyblue;
+/* Fond de page */
+body#bienvenue {
+    margin: 0;
+    min-height: 100vh;
+
+    background-image: url('../img/background_bienvenue.png');
+    background-size: cover;          /* remplit l’écran */
+    background-position: center;     /* centre l’image */
+    background-repeat: no-repeat;    /* pas de répétition */
+
+    display: flex;
+    align-items: center;             /* centre verticalement */
+    justify-content: center;         /* centre horizontalement */
 }
+
+#bienvenue main{
+    display: flex;
+    align-items: center;      /* centre verticalement */
+    justify-content: center;  /* centre horizontalement */
+}
+
+
+
+.bienvenue-bloc {
+    width: 710px;
+    height: 724px;
+
+    background: #4D8077;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.03);
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* centre le contenu verticalement */
+    align-items: center;      /* centre le contenu horizontalement */
+
+    padding: 2rem;
+    text-align: center;
+    color: #fff;
+}
+
+.bienvenue-bloc h2{
+    max-width: 90%; /* responsive */
+
+    font-family: 'Manrope', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 46px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+    margin: 0 auto 1rem auto;      /* centre horizontalement et espace bas */
+}
+.bienvenue-bloc h5{
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 30px;
+    color: #FFFFFF;
+}
+
+.bienvenue-bloc p{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
+.bienvenue-bloc a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 224px;
+    height: 74px;
+    background: #1C5B50;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.bienvenue-bloc a:nth-of-type(2) {
+    background: #B1D89D;
+}
+
+.login_link a{
+    display: block;
+    width: 224px;
+    height: 74px;
+    background: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.line::before,
+.line::after {
+    content: '';
+    width: 140px;
+    height: 1px;
+    background-color: #fff;    /* couleur du trait */
+    flex-shrink: 0;            /* empêche le rétrécissement */
+}
+
+
+
+
+/* ------------------------------------------ */
+/* --------------- Responsive --------------- */
+/* ------------------------------------------ */
+
+/* Tablettes / petits laptops */
+@media (max-width: 1024px) {
+    .bienvenue-bloc {
+        width: 90%; /* largeur flexible */
+        height: auto; /* hauteur automatique selon contenu */
+        padding: 1.5rem;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .bienvenue-bloc {
+        width: 95%;
+        height: auto;
+        padding: 1rem;
+        border-radius: 20px;
+    }
+}
+
+

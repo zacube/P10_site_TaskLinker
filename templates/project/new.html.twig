@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block importmap %}
+    {{ parent() }}
+    {{ importmap('select') }}
+{% endblock %}
+{% block title %}
+    {% if project.id %}
+        Modifier le projet {{ project.name }}
+    {% else %}
+        Nouveau projet
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div id="current-user"></div>
+        <div id="title-page">
+            <h1>
+                {% if project.id %}
+                    Modifier le projet {{ project.name }}
+                {% else %}
+                    Nouveau projet
+                {% endif %}
+            </h1>
+        </div>
+    </header>
+
+    <div id="content">
+        {# Génération du formulaire #}
+        {{ form_start(
+            form,
+            {
+                'action': project.id
+                ? path('app_project_edit', {id: project.id})
+                : path('app_project_new'),
+                'method': 'POST'
+            }
+        ) }}
+        <div>{{ form_row(form.name) }}</div>
+        <div>{{ form_row(form.team) }}</div>
+        <br>
+        <button class="button button-submit">
+            {% if project.id %}
+                Modifier
+            {% else %}
+                Continuer
+            {% endif %}
+        </button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

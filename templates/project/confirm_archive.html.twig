@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmer l'archivage{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div id="current-user"></div>
+        <div id="title-page">
+            <h1>Confirmer l'archivage</h1>
+        </div>
+    </header>
+    <div id="content">
+
+        <p>Êtes-vous sûr de vouloir archiver le projet <strong>{{ project.name }}</strong> ?</p>
+
+        <p>Il ne sera pas supprimé de la base de données, mais il n’apparaîtra plus dans la liste des projets.</p>
+
+        <form method="post" action="{{ path('app_project_archive', { id: project.id }) }}">
+            <button type="submit" class="button button-submit">Archiver</button>
+            <a href="{{ path('app_project_index') }}" class="delete-task">Annuler</a>
+        </form>
+    </div>
+{% endblock %}

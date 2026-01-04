@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ employee.firstname }} {{ employee.name }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <header>
+        <div id="current-user"></div>
+        <div id="title-page">
+            <h1>{{ employee.firstname }} {{ employee.name }}</h1>
+        </div>
+    </header>
+    <div id="content">
+        {{ form_start(form, { 'action': path('app_employee_edit', { id: employee.id }), 'method': 'POST'}) }}
+        <div>{{ form_row(form.name) }}</div>
+        <div>{{ form_row(form.firstname) }}</div>
+        <div>{{ form_row(form.email) }}</div>
+        <div>{{ form_row(form.entryDate) }}</div>
+        <div>{{ form_row(form.status) }}</div>
+        <br>
+        <button class="button button-submit">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

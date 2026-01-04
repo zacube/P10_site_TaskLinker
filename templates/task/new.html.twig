@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{% if task.id %}
+    Modifier la tâche #{{ task.id }}
+{% else %}
+    Nouvelle tâche
+{% endif %}
+     {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div id="current-user"></div>
+        <div id="title-page">
+            <h1>{% if task.id %}
+                    Modifier la tâche
+                {% else %}
+                    Nouvelle tâche
+                {% endif %}</h1>
+        </div>
+    </header>
+    <div id="content">
+        {% set project = task.project %}
+        {{ form_start(form, { 'action': task.id ? path('app_task_edit', { id: task.id }) : path('app_task_new',{'id': project.id}), 'method': 'POST'}) }}
+            <div>{{ form_row(form.name) }}</div>
+            <div>{{ form_row(form.description) }}</div>
+            <div>{{ form_row(form.deadline) }}</div>
+            <div>{{ form_row(form.status) }}</div>
+            <div>{{ form_row(form.holder) }}</div>
+            <br>
+            <button class="button button-submit">{{ task.id ? 'Modifier' : 'Enregistrer' }}</button>
+            {% if task.id %}
+                <a href="{{ path('app_task_delete', { id: task.id }) }}" class="delete-task">Supprimer la tâche</a>
+            {% endif %}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

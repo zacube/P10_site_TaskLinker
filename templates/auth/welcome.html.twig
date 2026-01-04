@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Accueil{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+              integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer"/>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    {% endblock %}
+    {% block importmap %}
+        {{ importmap('app') }}
+    {% endblock %}
+</head>
+<body id="bienvenue">
+<main>
+    {% block body %}
+        <div class="bienvenue-bloc">
+            <h2>Bienvenue sur TaskLinker</h2>
+            <h5>Commencez dès maintenant - gratuitement </h5>
+            <p>Vous avez déjà un compte ?</p>
+            <a href="{{ path('app_auth_login') }}">Se connecter</a>
+            <p class="line">ou</p>
+            <a href="{{ path('app_auth_signin') }}">S'inscrire</a>
+        </div>
+    {% endblock %}
+</main>
+</body>
+</html>

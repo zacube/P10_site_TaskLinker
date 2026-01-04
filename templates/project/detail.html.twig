@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ project.name }}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <header>
+        <div id="current-user"></div>
+        <div id="title-page">
+            <div class="flex-header">
+                <h1>{{ project.name }}</h1>
+                <div class="user-list">
+                    {% for member in project.team %}
+                        <div class="avatar" title="{{ member.firstname }} {{ member.name }}">{{ member.initials }}</div>
+                    {% endfor %}
+                </div>
+                <a class="button" href="{{ path('app_project_edit', { id: project.id}) }}">Modifier</a>
+            </div>
+        </div>
+    </header>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <div id="content">
+        <div id="tasks-container">
+            <div class="task-column">
+                <h2>To Do</h2>
+                <div class="tasks-list">
+                    {% for item in todo %}
+                        <a class="task" href="{{ path('app_task_edit', {id: item.task.id}) }}">
+                            <h3>{{ item.task.name }}</h3>
+                            <p>{{ item.task.description }}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i>{{ item.task.formattedDeadline ? item.task.formattedDeadline|date('d-m-Y') : '' }}
+                                </div>
+                                {% if item.task.holder %}
+                                    <div class="mini-user"
+                                         title="{{ (item.task.holder.firstname ?? '') ~ ' ' ~ (item.task.holder.name ?? '') }}">
+                                        {{ item.task.holder.initials ?? '' }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                    <a href="{{ path('app_task_new', {'id': project.id, 'status': constant('App\\Enum\\TaskStatus::ToDo').value}) }}"
+                       class="task-add">
+                        + Ajouter une tâche
+                    </a>
+                </div>
+            </div>
+            <div class="task-column">
+                <h2>Doing</h2>
+                <div class="tasks-list">
+                    {% for item in doing %}
+                        <a class="task" href="{{ path('app_task_edit', {id: item.task.id}) }}">
+                            <h3>{{ item.task.name }}</h3>
+                            <p>{{ item.task.description }}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i>{{ item.task.formattedDeadline ? item.task.formattedDeadline|date('d-m-Y') : '' }}
+                                </div>
+                                {% if item.task.holder %}
+                                    <div class="mini-user"
+                                         title="{{ (item.task.holder.firstname ?? '') ~ ' ' ~ (item.task.holder.name ?? '') }}">
+                                        {{ item.task.holder.initials ?? '' }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                    <a href="{{ path('app_task_new', {'id': project.id, 'status': constant('App\\Enum\\TaskStatus::Doing').value}) }}"
+                       class="task-add">
+                        + Ajouter une tâche
+                    </a>
+                </div>
+            </div>
+            <div class="task-column">
+                <h2>Done</h2>
+                <div class="tasks-list">
+                    {% for item in done %}
+                        <a class="task" href="{{ path('app_task_edit', {id: item.task.id}) }}">
+                            <h3>{{ item.task.name }}</h3>
+                            <p>{{ item.task.description }}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i>{{ item.task.formattedDeadline ? item.task.formattedDeadline|date('d-m-Y') : '' }}
+                                </div>
+                                {% if item.task.holder %}
+                                    <div class="mini-user"
+                                         title="{{ (item.task.holder.firstname ?? '') ~ ' ' ~ (item.task.holder.name ?? '') }}">
+                                        {{ item.task.holder.initials ?? '' }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                    <a href="{{ path('app_task_new', {'id': project.id, 'status': constant('App\\Enum\\TaskStatus::Done').value}) }}"
+                       class="task-add">
+                        + Ajouter une tâche
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
