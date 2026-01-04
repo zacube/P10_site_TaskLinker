@@ -62,7 +62,7 @@ final class AuthController extends AbstractController
             $manager->persist($employee);
             $manager->flush();
 
-            return $this->redirectToRoute('app_project_index');
+            return $this->redirectToRoute('app_auth_login');
         }
 
         return $this->render('auth/signin.html.twig', [

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Employee;
+use App\Enum\EmployeeRole;
 use App\Form\EmployeeType;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/employee', name: 'app_employee_')]
 final class EmployeeController extends AbstractController
@@ -20,11 +22,13 @@ final class EmployeeController extends AbstractController
         $employees = $employeeRepository->findAll();
 
         return $this->render('employee/index.html.twig', [
-            'employees' => $employees
+            'employees' => $employees,
+            'managerRole' => EmployeeRole::Manager->value,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[IsGranted(EmployeeRole::Manager->value)]
     public function edit(Employee $employee, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(EmployeeType::class, $employee);

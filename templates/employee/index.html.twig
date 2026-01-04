@@ -24,7 +24,9 @@
             <tr>
                 <th>Prénom, Nom</th>
                 <th>Statut</th>
+                {% if is_granted(managerRole) %}
                 <th>Actions</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -42,6 +44,7 @@
                     </div>
                 </td>
                 <td>{{ employee.status.value }}</td>
+                {% if is_granted(managerRole) %}
                 <td>
                     <a class="button button-edit-team" href="{{ path('app_employee_edit', {id: employee.id}) }}">
                         Éditer
@@ -50,6 +53,7 @@
                         Supprimer
                     </a>
                 </td>
+                {% endif %}
             </tr>
             {% else %}
                 <tr>

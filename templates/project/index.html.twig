@@ -21,22 +21,28 @@
     <div id="content">
         <div id="projects-container">
             {% for project in projects %}
-            <article class="card-project">
-                <a href="{{ path('app_project_detail', {id: project.id}) }}">
-                    <h2>{{ project.name }}</h2>
-                </a>
-                <div class="card-project-icons">
-                    <a href="{{ path('app_project_edit', { id: project.id}) }}" title="Modifier"><i class="fa-solid fa-pen"></i></a>
-                    <a href="{{ path('app_project_confirm_archive', {id: project.id}) }}" title="Archiver"><i class="fa-solid fa-trash"></i></a>
-                </div>
-            </article>
+                <article class="card-project">
+                    <a href="{{ path('app_project_detail', {id: project.id}) }}">
+                        <h2>{{ project.name }}</h2>
+                    </a>
+                    {% if is_granted(managerRole) %}
+                    <div class="card-project-icons">
+                        <a href="{{ path('app_project_edit', { id: project.id}) }}" title="Modifier"><i
+                                class="fa-solid fa-pen"></i></a>
+                        <a href="{{ path('app_project_confirm_archive', {id: project.id}) }}" title="Archiver"><i
+                                class="fa-solid fa-trash"></i></a>
+                    </div>
+            {% endif %}
+                </article>
             {% endfor %}
-            <article class="card-project">
-                <a href="{{ path('app_project_new') }}">
-                    <i class="fa-solid fa-circle-plus add-project-icon"></i>
-                    <h2>Ajouter un projet</h2>
-                </a>
-            </article>
+            {% if is_granted(managerRole) %}
+                <article class="card-project">
+                    <a href="{{ path('app_project_new') }}">
+                        <i class="fa-solid fa-circle-plus add-project-icon"></i>
+                        <h2>Ajouter un projet</h2>
+                    </a>
+                </article>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

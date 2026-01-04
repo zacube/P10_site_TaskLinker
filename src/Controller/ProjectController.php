@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Enum\TaskStatus;
+use App\Enum\EmployeeRole;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class ProjectController extends AbstractController
 {
@@ -22,11 +23,13 @@ final class ProjectController extends AbstractController
         $projects = $projectRepository->findBy(['status' => true]);
 
         return $this->render('project/index.html.twig', [
-            'projects' => $projects
+            'projects' => $projects,
+            'managerRole' => EmployeeRole::Manager->value,
         ]);
     }
 
     #[Route('/project/new', name: 'app_project_new', methods: ['GET', 'POST'])]
+    #[IsGranted(EmployeeRole::Manager->value)]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $project = new Project();
@@ -69,10 +72,12 @@ final class ProjectController extends AbstractController
             'todo' => $todo,
             'doing' => $doing,
             'done' => $done,
+            'managerRole' => EmployeeRole::Manager->value,
         ]);
     }
 
     #[Route('/project/{id}/edit', name: 'app_project_edit')]
+    #[IsGranted(EmployeeRole::Manager->value)]
     public function edit(Project $project, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
@@ -88,11 +93,13 @@ final class ProjectController extends AbstractController
         return $this->render('project/new.html.twig', [
             'form' => $form->createView(),
             'project' => $project,
+            'managerRole' => EmployeeRole::Manager->value,
         ]);
     }
 
 
     #[Route('/project/{id}/confirm-archive', name: 'app_project_confirm_archive')]
+    #[IsGranted(EmployeeRole::Manager->value)]
     public function confirmArchive(Project $project): Response
     {
         return $this->render('project/confirm_archive.html.twig', [
@@ -101,6 +108,7 @@ final class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}/archive', name: 'app_project_archive', requirements: ['id' => '\d+'], methods: ['POST'])]
+    #[IsGranted(EmployeeRole::Manager->value)]
     public function archive(Project $project, EntityManagerInterface $manager): Response
     {
         // Vérifier si l'entité existe
