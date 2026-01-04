@@ -4,9 +4,11 @@
 
 {% block body %}
     <header>
-        <div id="current-user"></div>
         <div id="title-page">
             <h1>Équipe</h1>
+        </div>
+        <div id="current-user">
+            {% include 'currentUser.html.twig' %}
         </div>
     </header>
     {% for label, messages in app.flashes %}

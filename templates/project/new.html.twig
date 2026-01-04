@@ -15,7 +15,6 @@
 
 {% block body %}
     <header>
-        <div id="current-user"></div>
         <div id="title-page">
             <h1>
                 {% if project.id %}
@@ -24,6 +23,9 @@
                     Nouveau projet
                 {% endif %}
             </h1>
+        </div>
+        <div id="current-user">
+            {% include 'currentUser.html.twig' %}
         </div>
     </header>
 

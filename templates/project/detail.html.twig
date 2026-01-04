@@ -4,7 +4,6 @@
 
 {% block body %}
     <header>
-        <div id="current-user"></div>
         <div id="title-page">
             <div class="flex-header">
                 <h1>{{ project.name }}</h1>
@@ -15,6 +14,9 @@
                 </div>
                 <a class="button" href="{{ path('app_project_edit', { id: project.id}) }}">Modifier</a>
             </div>
+        </div>
+        <div id="current-user">
+            {% include 'currentUser.html.twig' %}
         </div>
     </header>
     {% for label, messages in app.flashes %}

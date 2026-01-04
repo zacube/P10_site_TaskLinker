@@ -5,9 +5,11 @@
 
 {% block body %}
     <header>
-        <div id="current-user"></div>
         <div id="title-page">
             <h1>Confirmer l'archivage</h1>
+        </div>
+        <div id="current-user">
+            {% include 'currentUser.html.twig' %}
         </div>
     </header>
     <div id="content">

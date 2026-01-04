@@ -189,6 +189,12 @@ div#projects-container {
     margin-left: -12px;
     background: #1C5B50;
     border: 1px solid lightgray;
+    color: #fff;
+
+}
+
+.avatar-link{
+    text-decoration: none;
 }
 
 .user-list {
