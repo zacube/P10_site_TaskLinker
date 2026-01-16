@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Employee;
+use App\Enum\EmployeeRole;
 use App\Enum\EmployeeStatus;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -42,6 +43,14 @@ class EmployeeType extends AbstractType
                     'CDD' => EmployeeStatus::CDD,
                     'Intérim' => EmployeeStatus::Interim,
                 ],
+            ])
+            ->add('roles', ChoiceType::class, [
+                'multiple' => true,
+                'label' => 'Rôle',
+                'choices' => array_combine(
+                    array_map(fn (EmployeeRole $er) => $er->name, EmployeeRole::cases()),
+                    array_map(fn (EmployeeRole $er) => $er->value, EmployeeRole::cases()),
+                ),
             ]);
     }
 

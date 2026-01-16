@@ -108,22 +108,13 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param list<string> $roles
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
         return $this;
-    }
-
-    public function addRole(EmployeeRole $role): void
-    {
-        if (!in_array($role->value, $this->roles)) {
-            $this->roles[] = $role->value;
-        }
-    }
-
-    public function removeRole(EmployeeRole $role): void
-    {
-        $this->roles = array_filter($this->roles, fn($r) => $r !== $role->value);
     }
 
     /**
