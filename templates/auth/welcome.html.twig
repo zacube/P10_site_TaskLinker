@@ -14,15 +14,18 @@
     {% endblock %}
 </head>
 <body id="bienvenue">
+<div class="logo">
+    <img src="/assets/img/logo-97OVeYB.png" alt="Logo TaskLinker">
+</div>
 <main>
     {% block body %}
         <div class="bienvenue-bloc">
             <h2>Bienvenue sur TaskLinker</h2>
             <h5>Commencez dès maintenant - gratuitement </h5>
             <p>Vous avez déjà un compte ?</p>
-            <a href="{{ path('app_auth_login') }}">Se connecter</a>
+            <a href="{{ path('app_auth_login') }}" class="button button-home-login">Se connecter</a>
             <p class="line">ou</p>
-            <a href="{{ path('app_auth_signin') }}">S'inscrire</a>
+            <a href="{{ path('app_auth_signin') }}" class="button button-home-signin">S'inscrire</a>
         </div>
     {% endblock %}
 </main>

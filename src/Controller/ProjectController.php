@@ -20,7 +20,8 @@ final class ProjectController extends AbstractController
     #[Route('/project', name: 'app_project_index')]
     public function index(ProjectRepository $projectRepository): Response
     {
-        $projects = $projectRepository->findBy(['status' => true]);
+        $user = $this->getUser();
+        $projects = $projectRepository->findByUser($user);
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,

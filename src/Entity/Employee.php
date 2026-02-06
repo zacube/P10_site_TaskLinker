@@ -28,7 +28,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
      * @var list<string> The user roles
      */
     #[ORM\Column(type: 'json')]
-    private array $roles = [EmployeeRole::Collaborateur->value];
+    private array $roles = [EmployeeRole::User->value];
 
     /**
      * @var string The hashed password
@@ -102,8 +102,8 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // Garantit que ROLE_USER est toujours présent
-        if (!in_array(EmployeeRole::Collaborateur->value, $roles)) {
-            $roles[] = EmployeeRole::Collaborateur->value;
+        if (!in_array(EmployeeRole::User->value, $roles)) {
+            $roles[] = EmployeeRole::User->value;
         }
         return array_unique($roles);
     }

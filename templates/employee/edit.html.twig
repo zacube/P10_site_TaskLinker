@@ -12,7 +12,7 @@
         </div>
     </header>
     <div id="content">
-        {{ form_start(form, { 'action': path('app_employee_edit', { id: employee.id }), 'method': 'POST'}) }}
+        {{ form_start(form, { 'action': path('app_employee_edit', { id: employee.id }), 'method': 'POST', 'attr': {'class': 'employee-form'}}) }}
         <div>{{ form_row(form.name) }}</div>
         <div>{{ form_row(form.firstname) }}</div>
         <div>{{ form_row(form.email) }}</div>
@@ -20,7 +20,7 @@
         <div>{{ form_row(form.status) }}</div>
         <div>{{ form_row(form.roles) }}</div>
         <br>
-        <button class="button button-submit">Enregistrer</button>
+        <button class="button-submit">Enregistrer</button>
         {{ form_end(form) }}
     </div>
 {% endblock %}

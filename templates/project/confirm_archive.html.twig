@@ -19,7 +19,7 @@
         <p>Il ne sera pas supprimé de la base de données, mais il n’apparaîtra plus dans la liste des projets.</p>
 
         <form method="post" action="{{ path('app_project_archive', { id: project.id }) }}">
-            <button type="submit" class="button button-submit">Archiver</button>
+            <button type="submit" class="button-submit">Archiver</button>
             <a href="{{ path('app_project_index') }}" class="delete-task">Annuler</a>
         </form>
     </div>

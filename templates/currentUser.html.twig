@@ -1,8 +1,7 @@
 <div class="user-list">
     {% if app.user %}
         <a class="avatar-link" href="{{ path('app_auth_logout') }}">
-        <div class="avatar" title="Déconnexion ({{ app.user.firstname }} {{ app.user.name }})">{{ app.user.initials }}</div>
+        <div class="user-avatar" title="Déconnexion ({{ app.user.firstname }} {{ app.user.name }})">{{ app.user.initials }}</div>
         </a>
-        <p>{{ dump(app.user.roles) }}</p>
     {% endif %}
 </div>

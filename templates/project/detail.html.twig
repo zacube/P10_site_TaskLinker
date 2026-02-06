@@ -13,7 +13,7 @@
                     {% endfor %}
                 </div>
                 {% if is_granted(managerRole) %}
-                <a class="button" href="{{ path('app_project_edit', { id: project.id}) }}">Modifier</a>
+                    <a class="button" href="{{ path('app_project_edit', { id: project.id}) }}">Inviter des membres</a>
                 {% endif %}
             </div>
         </div>
@@ -38,9 +38,11 @@
                             <h3>{{ item.task.name }}</h3>
                             <p>{{ item.task.description }}</p>
                             <div class="task-infos">
-                                <div class="task-deadline">
-                                    <i class="fa-regular fa-calendar"></i>{{ item.task.formattedDeadline ? item.task.formattedDeadline|date('d-m-Y') : '' }}
-                                </div>
+                                {% if item.task.formattedDeadline %}
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i> {{ item.task.formattedDeadline|date('d-m-Y') }}
+                                    </div>
+                                {% endif %}
                                 {% if item.task.holder %}
                                     <div class="mini-user"
                                          title="{{ (item.task.holder.firstname ?? '') ~ ' ' ~ (item.task.holder.name ?? '') }}">
@@ -64,9 +66,11 @@
                             <h3>{{ item.task.name }}</h3>
                             <p>{{ item.task.description }}</p>
                             <div class="task-infos">
-                                <div class="task-deadline">
-                                    <i class="fa-regular fa-calendar"></i>{{ item.task.formattedDeadline ? item.task.formattedDeadline|date('d-m-Y') : '' }}
-                                </div>
+                                {% if item.task.formattedDeadline %}
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i> {{ item.task.formattedDeadline|date('d-m-Y') }}
+                                    </div>
+                                {% endif %}
                                 {% if item.task.holder %}
                                     <div class="mini-user"
                                          title="{{ (item.task.holder.firstname ?? '') ~ ' ' ~ (item.task.holder.name ?? '') }}">
@@ -90,9 +94,11 @@
                             <h3>{{ item.task.name }}</h3>
                             <p>{{ item.task.description }}</p>
                             <div class="task-infos">
-                                <div class="task-deadline">
-                                    <i class="fa-regular fa-calendar"></i>{{ item.task.formattedDeadline ? item.task.formattedDeadline|date('d-m-Y') : '' }}
-                                </div>
+                                {% if item.task.formattedDeadline %}
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i> {{ item.task.formattedDeadline|date('d-m-Y') }}
+                                    </div>
+                                {% endif %}
                                 {% if item.task.holder %}
                                     <div class="mini-user"
                                          title="{{ (item.task.holder.firstname ?? '') ~ ' ' ~ (item.task.holder.name ?? '') }}">

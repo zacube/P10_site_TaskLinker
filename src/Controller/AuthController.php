@@ -57,7 +57,7 @@ final class AuthController extends AbstractController
             // Initialisation automatique de l'entrée
             $employee->setEntryDate(new \DateTimeImmutable());
             $employee->setStatus(EmployeeStatus::CDI);
-            $employee->setRoles([EmployeeRole::Collaborateur->value]); // rôle par défaut
+            $employee->setRoles([EmployeeRole::User->value]); // rôle par défaut
 
             $manager->persist($employee);
             $manager->flush();

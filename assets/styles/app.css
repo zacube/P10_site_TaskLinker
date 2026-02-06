@@ -11,22 +11,25 @@ body#bienvenue {
     display: flex;
     align-items: center;             /* centre verticalement */
     justify-content: center;         /* centre horizontalement */
+    position: relative;
 }
-
+#bienvenue .logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
 #bienvenue main{
     display: flex;
     align-items: center;      /* centre verticalement */
     justify-content: center;  /* centre horizontalement */
 }
 
-
-
 .bienvenue-bloc {
     width: 710px;
-    height: 724px;
 
     background: #4D8077;
-    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
     border-radius: 30px;
 
     display: flex;
@@ -34,7 +37,7 @@ body#bienvenue {
     justify-content: center;  /* centre le contenu verticalement */
     align-items: center;      /* centre le contenu horizontalement */
 
-    padding: 2rem;
+    padding: 2rem 2rem 4rem;
     text-align: center;
     color: #fff;
 }
@@ -53,7 +56,7 @@ body#bienvenue {
     text-align: center;
 
     color: #FFFFFF;
-    margin: 0 auto 1rem auto;      /* centre horizontalement et espace bas */
+    margin: 50px auto 50px auto;      /* centre horizontalement et espace bas */
 }
 .bienvenue-bloc h5{
     font-weight: 400;
@@ -64,12 +67,19 @@ body#bienvenue {
 
 .bienvenue-bloc p{
     font-weight: 400;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 25px;
     color: #FFFFFF;
 }
 
-.bienvenue-bloc a {
+.bienvenue-bloc p a{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 25px;
+    color: #FFFFFF;
+}
+
+/*.bienvenue-bloc a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,10 +92,17 @@ body#bienvenue {
     line-height: 24px;
     color: #FFFFFF;
     text-decoration: none;
-}
+
 
 .bienvenue-bloc a:nth-of-type(2) {
     background: #B1D89D;
+}}*/
+
+.bienvenue-bloc label{
+    text-align: left;
+    color: #fff;
+    font-weight: 400;
+
 }
 
 .login_link a{
@@ -130,7 +147,7 @@ body#bienvenue {
     .bienvenue-bloc {
         width: 90%; /* largeur flexible */
         height: auto; /* hauteur automatique selon contenu */
-        padding: 1.5rem;
+        padding: 1.5rem 1.5rem 4rem;
     }
 }
 
@@ -139,7 +156,7 @@ body#bienvenue {
     .bienvenue-bloc {
         width: 95%;
         height: auto;
-        padding: 1rem;
+        padding: 1rem 1rem 3rem;
         border-radius: 20px;
     }
 }

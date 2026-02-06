@@ -14,17 +14,22 @@
     {% endblock %}
 </head>
 <body id="bienvenue">
+<div class="logo">
+    <img src="/assets/img/logo-97OVeYB.png" alt="Logo TaskLinker">
+</div>
 <main>
-        <div class="bienvenue-bloc">
-            {{ form_start(form) }}
-                {{ form_row(form.name) }}
-                {{ form_row(form.firstname) }}
-                {{ form_row(form.email) }}
-                {{ form_row(form.password) }}
-                <button type="submit">S'inscrire</button>
-            {{ form_end(form) }}
-            <a class="login_link" href="{{ path ('app_auth_login') }}">Vous avez déjà un compte ?</a>
-        </div>
+    <div class="bienvenue-bloc">
+        <h2>S'inscrire</h2>
+
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        <button class="button-submit" type="submit">S'inscrire</button>
+        {{ form_end(form) }}
+        <p><a class="login_link" href="{{ path ('app_auth_login') }}">Vous avez déjà un compte ?</a></p>
+    </div>
 
 </main>
 </body>

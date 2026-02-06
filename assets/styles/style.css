@@ -81,11 +81,15 @@ ul#main-menu i {
 header {
     background: #4D8077;
     height: 155px;
-    padding: 30px 80px 10px 80px;
+    padding: 30px 80px 26px 80px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between
 }
 
 div#current-user {
     height: 55px;
+    align-self: flex-start;
 }
 
 div#title-page h1 {
@@ -94,7 +98,7 @@ div#title-page h1 {
     font-weight: 700;
     line-height: 30px;
     color: #fff;
-    margin: 0;
+    margin: 12px 0;
 }
 
 div#content {
@@ -104,7 +108,7 @@ div#content {
 .card-project {
     width: 223px;
     height: 116px;
-    box-shadow: 0px 3px 11px 4px #00000013;
+    box-shadow: 0 3px 11px 4px #00000013;
     background: white;
     color: #1C5B50;
     font-weight: 700;
@@ -176,7 +180,6 @@ div#projects-container {
     display: flex;
     gap: 45px;
     align-items: center;
-    transform: translateY(-25%);
 }
 
 .avatar {
@@ -190,11 +193,22 @@ div#projects-container {
     background: #1C5B50;
     border: 1px solid lightgray;
     color: #fff;
-
 }
 
 .avatar-link{
     text-decoration: none;
+}
+
+.user-avatar{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #1C5B50;
+    border: 2px solid #1C5B50;
 }
 
 .user-list {
@@ -209,17 +223,41 @@ div#projects-container {
     padding: 0 15px;
     border-radius: 10px;
     height: 54px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     color: #4D8077;
     font-family: Manrope;
     font-size: 14px;
     font-weight: 700;
     line-height: 24px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: center;
     text-decoration: none;
+    justify-content: center;
 }
+
+.button-home-login {
+    background: #1F5B50;
+    color: #FEFBFB;
+    width: 225px;
+    height: 75px;
+}
+
+.button-home-signin {
+    background: #b1d89d;
+    color: #4D8077;
+    width: 225px;
+    height: 75px;
+}
+
+.button-edit-team {
+    background: #1F5B50;
+    color: #fff;
+    width: 125px;
+}
+
+
+
 
 div#tasks-container {
     display: flex;
@@ -253,7 +291,7 @@ a.task {
     color: #202020;
     flex-direction: column;
     justify-content: center;
-    padding: 15px 30px;
+    padding: 0 30px;
     margin-bottom: 10px;
 }
 
@@ -280,7 +318,7 @@ a.task p {
     font-size: 11.5px;
     font-weight: 400;
     line-height: 24px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: left;
     color: #5C5C5C;
     display: flex;
@@ -360,7 +398,7 @@ table#team-container tr td {
     font-size: 18px;
     font-weight: 700;
     line-height: 24px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: center;
     color: #fff;
     background: #1C5B50;
@@ -376,24 +414,14 @@ table#team-container tr td {
 }
 
 table#team-container tbody tr td:last-child {
-    display: flex;
-    align-items: center;
-    gap: 35px;
     max-width: 315px;
-}
-
-a.button-edit-team {
-    background: #1F5B50;
-    color: #FEFBFB;
-    text-decoration: none;
-    width: 125px;
-    justify-content: center;
 }
 
 a.delete-team {
     color: #E14343;
     font-size: 14px;
     font-weight: 600;
+    margin-left: 30px;
 }
 
 table#team-container thead tr th:last-child {
@@ -410,6 +438,10 @@ form input, form select, form textarea {
     width: 100%;
     margin-bottom: 24px;
     border-radius: 4px;
+}
+
+.bienvenue-bloc form input, .bienvenue-bloc form select, .bienvenue-bloc form textarea {
+    border: none;
 }
 
 form {
@@ -437,7 +469,7 @@ form label {
     flex-grow: 0;
 }
 
-button.button.button-submit {
+button.button-submit {
     width: 100%;
     background: #1F5B50;
     border-radius: 10px;
@@ -445,12 +477,13 @@ button.button.button-submit {
     font-size: 14px;
     font-weight: 700;
     line-height: 24px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     justify-content: center;
     border: none;
     color: #ffffff;
     height: 70px;
-    margin-top: 5px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
 
 form ul {
@@ -459,6 +492,28 @@ form ul {
     color: #E14343;
     margin: 0;
     font-style: italic;
+}
+
+.task-form div:nth-child(3),
+.task-form div:nth-child(4) {
+    display: inline-block;
+    width: calc(50% - 12px);
+    vertical-align: top;
+}
+
+.task-form div:nth-child(3) {
+    margin-right: 20px;
+}
+
+.employee-form div:nth-child(4),
+.employee-form div:nth-child(5) {
+    display: inline-block;
+    width: calc(50% - 12px);
+    vertical-align: top;
+}
+
+.employee-form div:nth-child(4) {
+    margin-right: 20px;
 }
 
 a.delete-task {
@@ -477,7 +532,7 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     font-size: 12px;
     font-weight: 500;
     line-height: 21px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
     text-align: left;
     font-style: normal;
     height: 24px;

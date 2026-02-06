@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Employee;
 use App\Entity\Project;
+use App\Enum\EmployeeRole;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +18,20 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-    //    /**
-    //     * @return Project[] Returns an array of Project objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findByUser(?Employee $user): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status', true);
 
-    //    public function findOneBySomeField($value): ?Project
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // Si l'utilisateur existe et n'est pas manager
+        if ($user && !in_array(EmployeeRole::Manager->value, $user->getRoles())) {
+            $qb->innerJoin('p.team', 'e')
+                ->andWhere('e.id = :userId')
+                ->setParameter('userId', $user->getId());
+        }
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

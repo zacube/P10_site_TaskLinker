@@ -24,14 +24,14 @@
     </header>
     <div id="content">
         {% set project = task.project %}
-        {{ form_start(form, { 'action': task.id ? path('app_task_edit', { id: task.id }) : path('app_task_new',{'id': project.id}), 'method': 'POST'}) }}
+        {{ form_start(form, { 'action': task.id ? path('app_task_edit', { id: task.id }) : path('app_task_new',{'id': project.id}), 'method': 'POST', 'attr': {'class': 'task-form'}}) }}
             <div>{{ form_row(form.name) }}</div>
             <div>{{ form_row(form.description) }}</div>
             <div>{{ form_row(form.deadline) }}</div>
             <div>{{ form_row(form.status) }}</div>
             <div>{{ form_row(form.holder) }}</div>
             <br>
-            <button class="button button-submit">{{ task.id ? 'Modifier' : 'Enregistrer' }}</button>
+            <button class="button-submit">{{ task.id ? 'Modifier' : 'Enregistrer' }}</button>
             {% if task.id %}
                 <a href="{{ path('app_task_delete', { id: task.id }) }}" class="delete-task">Supprimer la tâche</a>
             {% endif %}
