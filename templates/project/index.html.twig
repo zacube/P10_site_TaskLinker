@@ -2,6 +2,8 @@
 
 {% block title %}Liste des projets{{ parent() }}{% endblock %}
 
+{% set manager_role = constant('App\\Enum\\EmployeeRole::Manager').value %}
+
 {% block body %}
     <header>
         <div id="title-page">
@@ -25,7 +27,7 @@
                     <a href="{{ path('app_project_detail', {id: project.id}) }}">
                         <h2>{{ project.name }}</h2>
                     </a>
-                    {% if is_granted(managerRole) %}
+                    {% if is_granted(manager_role) %}
                     <div class="card-project-icons">
                         <a href="{{ path('app_project_edit', { id: project.id}) }}" title="Modifier"><i
                                 class="fa-solid fa-pen"></i></a>
@@ -35,7 +37,7 @@
             {% endif %}
                 </article>
             {% endfor %}
-            {% if is_granted(managerRole) %}
+            {% if is_granted(manager_role) %}
                 <article class="card-project">
                     <a href="{{ path('app_project_new') }}">
                         <i class="fa-solid fa-circle-plus add-project-icon"></i>
