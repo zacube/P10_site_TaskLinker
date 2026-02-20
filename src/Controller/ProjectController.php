@@ -7,6 +7,7 @@ use App\Enum\TaskStatus;
 use App\Enum\EmployeeRole;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Security\Voter\ProjectVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,30 +15,32 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted(EmployeeRole::User->value)]
 final class ProjectController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     #[Route('/project', name: 'app_project_index')]
     public function index(ProjectRepository $projectRepository): Response
     {
-        $user = $this->getUser();
-        $projects = $projectRepository->findByUser($user);
-
         return $this->render('project/index.html.twig', [
-            'projects' => $projects,
-            'managerRole' => EmployeeRole::Manager->value,
+            'projects' => $projectRepository->findByUser($this->getUser()),
         ]);
     }
 
     #[Route('/project/new', name: 'app_project_new', methods: ['GET', 'POST'])]
-    #[IsGranted(EmployeeRole::Manager->value)]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
-        $project = new Project();
-        $project->setStatus(true); // on impose un statut au projet courant (false = archivé)
+        if (!$this->isGranted(EmployeeRole::Manager->value)) {
+            $this->addFlash('danger', "Vous n'avez pas accès à cette page.");
+            return $this->redirectToRoute('app_project_index');
+        }
 
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
+        $project = (new Project())
+            ->setStatus(true); // on impose un statut au projet courant (false = archivé)
+
+        $form = $this
+            ->createForm(ProjectType::class, $project)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($project);
@@ -52,9 +55,15 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/project/{id}', name: 'app_project_detail')]
-    public function detail(Project $project): Response
+    #[Route('/project/{id}', name: 'app_project_detail', requirements: ['id' => '\d+'])]
+    public function detail(?Project $project): Response
     {
+        // Projet introuvable ou pas autorisé → redirection
+        if ($project === null || !$this->isGranted(ProjectVoter::VIEW, $project)) {
+            $this->addFlash('danger', "Vous n'avez pas accès à ce projet.");
+            return $this->redirectToRoute('app_project_index');
+        }
+
         $tasks = $project->getTasks();
         $todo = [];
         $doing = [];
@@ -72,15 +81,19 @@ final class ProjectController extends AbstractController
             'project' => $project,
             'todo' => $todo,
             'doing' => $doing,
-            'done' => $done,
-            'managerRole' => EmployeeRole::Manager->value,
+            'done' => $done
         ]);
     }
 
     #[Route('/project/{id}/edit', name: 'app_project_edit')]
-    #[IsGranted(EmployeeRole::Manager->value)]
-    public function edit(Project $project, Request $request, EntityManagerInterface $manager): Response
+    public function edit(?Project $project, Request $request, EntityManagerInterface $manager): Response
     {
+        // Projet introuvable ou pas autorisé → redirection
+        if ($project === null || !$this->isGranted(ProjectVoter::VIEW, $project)) {
+            $this->addFlash('danger', "Vous n'avez pas accès à ce projet, ou il n'existe pas.");
+            return $this->redirectToRoute('app_project_index');
+        }
+
         $form = $this->createForm(ProjectType::class, $project);
 
         $form->handleRequest($request);
@@ -93,11 +106,9 @@ final class ProjectController extends AbstractController
 
         return $this->render('project/new.html.twig', [
             'form' => $form->createView(),
-            'project' => $project,
-            'managerRole' => EmployeeRole::Manager->value,
+            'project' => $project
         ]);
     }
-
 
     #[Route('/project/{id}/confirm-archive', name: 'app_project_confirm_archive')]
     #[IsGranted(EmployeeRole::Manager->value)]
@@ -109,14 +120,14 @@ final class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}/archive', name: 'app_project_archive', requirements: ['id' => '\d+'], methods: ['POST'])]
-    #[IsGranted(EmployeeRole::Manager->value)]
     public function archive(Project $project, EntityManagerInterface $manager): Response
     {
-        // Vérifier si l'entité existe
-        if (!$project) {
-            $this->addFlash('warning', 'Projet non trouvé.');
+        // Projet introuvable → redirection
+        if ($project === null || !$this->isGranted(ProjectVoter::VIEW, $project)) {
+            $this->addFlash('danger', "Vous n'avez pas accès à ce projet, ou il n'existe pas.");
             return $this->redirectToRoute('app_project_index');
         }
+
         $project->setStatus(false);
         $manager->flush();
         $this->addFlash('success', 'Projet archivé !');

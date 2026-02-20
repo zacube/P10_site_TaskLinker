@@ -193,6 +193,7 @@ div#projects-container {
     background: #1C5B50;
     border: 1px solid lightgray;
     color: #fff;
+    cursor: help;
 }
 
 .avatar-link{
@@ -601,4 +602,8 @@ form .select2-container--default .select2-selection--multiple .select2-selection
 
 .alert-success{
     background-color: #c9f489;
+}
+
+.alert-danger{
+    background-color: #ffbb63;
 }

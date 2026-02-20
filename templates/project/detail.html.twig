@@ -2,6 +2,8 @@
 
 {% block title %}{{ project.name }}{{ parent() }}{% endblock %}
 
+{% set manager_role = constant('App\\Enum\\EmployeeRole::Manager').value %}
+
 {% block body %}
     <header>
         <div id="title-page">
@@ -12,7 +14,7 @@
                         <div class="avatar" title="{{ member.firstname }} {{ member.name }}">{{ member.initials }}</div>
                     {% endfor %}
                 </div>
-                {% if is_granted(managerRole) %}
+                {% if is_granted(manager_role) %}
                     <a class="button" href="{{ path('app_project_edit', { id: project.id}) }}">Inviter des membres</a>
                 {% endif %}
             </div>

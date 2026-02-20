@@ -2,6 +2,8 @@
 
 {% block title %}Liste des employés{{ parent() }}{% endblock %}
 
+{% set manager_role = constant('App\\Enum\\EmployeeRole::Manager').value %}
+
 {% block body %}
     <header>
         <div id="title-page">
@@ -24,7 +26,7 @@
             <tr>
                 <th>Prénom, Nom</th>
                 <th>Statut</th>
-                {% if is_granted(managerRole) %}
+                {% if is_granted(manager_role) %}
                 <th>Rôle</th>
                 <th>Actions</th>
                 {% endif %}
@@ -45,9 +47,9 @@
                     </div>
                 </td>
                 <td>{{ employee.status.value }}</td>
-                {% if is_granted(managerRole) %}
+                {% if is_granted(manager_role) %}
                 <td>
-                    {% if managerRole in employee.roles %}
+                    {% if manager_role in employee.roles %}
                         Manager
                     {% else %}
                         Collaborateur
